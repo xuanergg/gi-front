@@ -245,47 +245,6 @@ export const GI_PROJECT_CONFIG = {
         "expressions": [],
         "logic": true
     }],
-    "layout": {
-        "id": "Force2",
-        "props": {
-            "type": "force2",
-            "animate": true,
-            "preset": {
-                "type": "concentric",
-                "width": 800,
-                "height": 800,
-                "minNodeSpacing": 10,
-                "nodeSize": 10
-            },
-            "clusterNodeStrength": 35,
-            "minMovement": 10,
-            "damping": 0.8,
-            "maxSpeed": 1000,
-            "distanceThresholdMode": "max",
-            "edgeStrength": 200,
-            "nodeStrength": 30000,
-            "defSpringLenCfg": {
-                "minLimitDegree": 5,
-                "maxLimitLength": 500,
-                "defaultSpring": 100
-            },
-            "centripetalOptions": {
-                "leaf": 2,
-                "single": 2,
-                "others": 1
-            },
-            "advanceWeight": false,
-            "edgeWeightFieldScale": 1,
-            "nodeWeightFromType": "node",
-            "nodeWeightFieldScale": 1,
-            "directed": false,
-            "directedFromType": "node",
-            "directedInWeightField": "s",
-            "directedOutWeightField": "s",
-            "directedIsLog": true,
-            "directedMultiple": "0.1"
-        }
-    },
     "components": [{
         "id": "ActivateRelations",
         "type": "AUTO",
@@ -375,6 +334,48 @@ export const GI_PROJECT_CONFIG = {
                 "hasDivider": false,
                 "height": "46px",
                 "isVertical": true
+            }
+        }
+    }, {
+        "id": "FilterPanel",
+        "type": "GIAC_CONTENT",
+        "name": "筛选面板",
+        "props": {
+            "filterKeys": [],
+            "enableInfoDetect": true,
+            "isFilterIsolatedNodes": true,
+            "highlightMode": true,
+            "filterLogic": "and",
+            "histogramOptions": {
+                "isCustom": false,
+                "min": null,
+                "max": null,
+                "binWidth": null
+            },
+            "GI_CONTAINER_INDEX": 2,
+            "GIAC_CONTENT": {
+                "visible": false,
+                "disabled": false,
+                "isShowTitle": true,
+                "title": "筛选面板",
+                "isShowIcon": true,
+                "icon": "icon-filter",
+                "isShowTooltip": true,
+                "tooltip": "通过属性筛选画布信息，可自定义",
+                "tooltipColor": "#3056e3",
+                "tooltipPlacement": "right",
+                "hasDivider": false,
+                "height": "60px",
+                "isVertical": true,
+                "containerType": "div",
+                "containerAnimate": false,
+                "containerDraggable": false,
+                "dragHandle": "header",
+                "containerPlacement": "RT",
+                "offset": [0, 0],
+                "containerWidth": "400px",
+                "containerHeight": "calc(100% - 100px)",
+                "contaienrMask": false
             }
         }
     }, {
@@ -501,6 +502,39 @@ export const GI_PROJECT_CONFIG = {
             "offset": [100, 20]
         }
     }, {
+        "id": "Overview",
+        "type": "GIAC_CONTENT",
+        "name": "大图概览",
+        "props": {
+            "limit": 6000,
+            "filterLogic": "and",
+            "GI_CONTAINER_INDEX": 2,
+            "GIAC_CONTENT": {
+                "visible": false,
+                "disabled": false,
+                "isShowTitle": true,
+                "title": "大图概览",
+                "isShowIcon": true,
+                "icon": "icon-dashboard",
+                "isShowTooltip": true,
+                "tooltip": "",
+                "tooltipColor": "#3056e3",
+                "tooltipPlacement": "right",
+                "hasDivider": false,
+                "height": "60px",
+                "isVertical": true,
+                "containerType": "div",
+                "containerAnimate": false,
+                "containerDraggable": false,
+                "dragHandle": "header",
+                "containerPlacement": "RT",
+                "offset": [0, 0],
+                "containerWidth": "400px",
+                "containerHeight": "calc(100% - 100px)",
+                "contaienrMask": false
+            }
+        }
+    }, {
         "id": "PinNodeWithMenu",
         "type": "GIAC_MENU",
         "name": "固定节点(MENU)",
@@ -612,107 +646,54 @@ export const GI_PROJECT_CONFIG = {
                 "isVertical": true
             }
         }
-    }, {
-        "id": "Overview",
-        "type": "GIAC_CONTENT",
-        "name": "大图概览",
-        "props": {
-            "limit": 600,
-            "filterLogic": "and",
-            "GI_CONTAINER_INDEX": 2,
-            "GIAC_CONTENT": {
-                "visible": false,
-                "disabled": false,
-                "isShowTitle": true,
-                "title": "大图概览",
-                "isShowIcon": true,
-                "icon": "icon-dashboard",
-                "isShowTooltip": true,
-                "tooltip": "",
-                "tooltipColor": "#3056e3",
-                "tooltipPlacement": "right",
-                "hasDivider": false,
-                "height": "60px",
-                "isVertical": true,
-                "containerType": "div",
-                "containerAnimate": false,
-                "containerDraggable": false,
-                "dragHandle": "header",
-                "containerPlacement": "RT",
-                "offset": [0, 0],
-                "containerWidth": "400px",
-                "containerHeight": "calc(100% - 100px)",
-                "contaienrMask": false
-            }
-        }
-    }, {
-        "id": "FilterPanel",
-        "type": "GIAC_CONTENT",
-        "name": "筛选面板",
-        "props": {
-            "filterKeys": [],
-            "enableInfoDetect": true,
-            "isFilterIsolatedNodes": true,
-            "highlightMode": true,
-            "filterLogic": "and",
-            "histogramOptions": {
-                "isCustom": false,
-                "min": null,
-                "max": null,
-                "binWidth": null
-            },
-            "GI_CONTAINER_INDEX": 2,
-            "GIAC_CONTENT": {
-                "visible": false,
-                "disabled": false,
-                "isShowTitle": true,
-                "title": "筛选面板",
-                "isShowIcon": true,
-                "icon": "icon-filter",
-                "isShowTooltip": true,
-                "tooltip": "通过属性筛选画布信息，可自定义",
-                "tooltipColor": "#3056e3",
-                "tooltipPlacement": "right",
-                "hasDivider": false,
-                "height": "60px",
-                "isVertical": true,
-                "containerType": "div",
-                "containerAnimate": false,
-                "containerDraggable": false,
-                "dragHandle": "header",
-                "containerPlacement": "RT",
-                "offset": [0, 0],
-                "containerWidth": "400px",
-                "containerHeight": "calc(100% - 100px)",
-                "contaienrMask": false
-            }
-        }
     }],
+    "layout": {
+        "id": "Force2",
+        "props": {
+            "type": "force2",
+            "animate": false,
+            "preset": {
+                "type": "concentric",
+                "width": 1000,
+                "height": 1000,
+                "minNodeSpacing": 10,
+                "nodeSize": 10
+            },
+            "clusterNodeStrength": 35,
+            "minMovement": 10,
+            "damping": 0.8,
+            "maxSpeed": 1000,
+            "distanceThresholdMode": "max",
+            "edgeStrength": 100,
+            "nodeStrength": 40000,
+            "defSpringLenCfg": {
+                "minLimitDegree": 5,
+                "maxLimitLength": 500,
+                "defaultSpring": 100
+            },
+            "centripetalOptions": {
+                "leaf": 2,
+                "single": 2,
+                "others": 1
+            },
+            "advanceWeight": false
+        }
+    },
     "pageLayout": {
-        "info": {
-            "id": "GrailLayout",
-            "name": "圣杯布局",
-            "desc": "支持左、右、下三个方向资产布局",
-            "icon": "icon-layout",
-            "cover": "http://xxxx.jpg",
-            "category": "container-components",
-            "type": "GICC_LAYOUT",
-            "docs": "https://www.yuque.com/antv/gi/nn4q8z3wc8b844gm"
-        },
-        "component": {
-            "compare": null
-        },
-        "version": "2.4.9",
-        "pkg": "@antv/gi-assets-basic",
         "id": "GrailLayout",
         "name": "圣杯布局",
-        "category": "container-components",
         "type": "GICC_LAYOUT",
         "props": {
             "containers": [{
                 "id": "GI_CONTAINER_LEFT",
                 "name": "左侧容器",
-                "GI_CONTAINER": ["Overview", "FilterPanel"],
+                "GI_CONTAINER": [{
+                    "value": "Overview",
+                    "label": "大图概览"
+                }, {
+                    "value": "FilterPanel",
+                    "label": "筛选面板"
+                }],
                 "visible": true,
                 "width": "280px",
                 "display": true
@@ -842,397 +823,13 @@ export const GI_PROJECT_CONFIG = {
                 ],
                 "display": true
             }]
-        },
-        "meta": {
-            "containers": [{
-                "id": "GI_CONTAINER_LEFT",
-                "name": "左侧容器",
-                "GI_CONTAINER": {
-                    "title": "集成组件",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Select",
-                    "x-component-props": {
-                        "mode": "multiple"
-                    },
-                    "enum": [{
-                        "label": "图表分析",
-                        "value": "ChartAnalysis"
-                    }, {
-                        "label": "筛选面板",
-                        "value": "FilterPanel"
-                    }, {
-                        "label": "大图概览",
-                        "value": "Overview"
-                    }, {
-                        "label": "路径分析",
-                        "value": "PathAnalysis"
-                    }, {
-                        "label": "桑基图分析",
-                        "value": "SankeyAnalysis"
-                    }, {
-                        "label": "保存分享",
-                        "value": "Save"
-                    }, {
-                        "label": "Cypher 语句查询",
-                        "value": "CypherQuery"
-                    }, {
-                        "label": "Gremlin 查询",
-                        "value": "GremlinQuery"
-                    }, {
-                        "label": "代码模式",
-                        "value": "JSONMode"
-                    }, {
-                        "label": "路径结构分析",
-                        "value": "StructAnalysis"
-                    }, {
-                        "label": "样式设置",
-                        "value": "StyleSetting"
-                    }, {
-                        "label": "子图布局",
-                        "value": "SubGraphLayout"
-                    }, {
-                        "label": "表格模式",
-                        "value": "TableMode"
-                    }, {
-                        "label": "主题设置",
-                        "value": "ThemeSetting"
-                    }, {
-                        "label": "时间线控制器",
-                        "value": "Timebar"
-                    }, {
-                        "label": "节点聚类",
-                        "value": "NodesClustering"
-                    }, {
-                        "label": "节点相似性",
-                        "value": "NodesSimilarity"
-                    }, {
-                        "label": "社区发现",
-                        "value": "CommunityDetection"
-                    }, {
-                        "label": "节点重要性",
-                        "value": "NodeImportance"
-                    }, {
-                        "label": "模式匹配",
-                        "value": "PatternMatch"
-                    }, {
-                        "label": "信息检测",
-                        "value": "InfoDetection"
-                    }, {
-                        "label": "环路检测Demo",
-                        "value": "LoopDetectionDemo"
-                    }],
-                    "default": []
-                },
-                "visible": {
-                    "title": "默认展开左侧容器",
-                    "type": "boolean",
-                    "x-decorator": "FormItem",
-                    "x-component": "Switch",
-                    "default": true
-                },
-                "width": {
-                    "title": "左侧宽度",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Input",
-                    "x-component-props": {},
-                    "default": "400px"
-                }
-            }, {
-                "id": "GI_CONTAINER_RIGHT",
-                "name": "右侧容器",
-                "GI_CONTAINER": {
-                    "title": "集成组件",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Select",
-                    "x-component-props": {
-                        "mode": "multiple"
-                    },
-                    "enum": [{
-                        "label": "图表分析",
-                        "value": "ChartAnalysis"
-                    }, {
-                        "label": "筛选面板",
-                        "value": "FilterPanel"
-                    }, {
-                        "label": "大图概览",
-                        "value": "Overview"
-                    }, {
-                        "label": "路径分析",
-                        "value": "PathAnalysis"
-                    }, {
-                        "label": "桑基图分析",
-                        "value": "SankeyAnalysis"
-                    }, {
-                        "label": "保存分享",
-                        "value": "Save"
-                    }, {
-                        "label": "Cypher 语句查询",
-                        "value": "CypherQuery"
-                    }, {
-                        "label": "Gremlin 查询",
-                        "value": "GremlinQuery"
-                    }, {
-                        "label": "代码模式",
-                        "value": "JSONMode"
-                    }, {
-                        "label": "路径结构分析",
-                        "value": "StructAnalysis"
-                    }, {
-                        "label": "样式设置",
-                        "value": "StyleSetting"
-                    }, {
-                        "label": "子图布局",
-                        "value": "SubGraphLayout"
-                    }, {
-                        "label": "表格模式",
-                        "value": "TableMode"
-                    }, {
-                        "label": "主题设置",
-                        "value": "ThemeSetting"
-                    }, {
-                        "label": "时间线控制器",
-                        "value": "Timebar"
-                    }, {
-                        "label": "节点聚类",
-                        "value": "NodesClustering"
-                    }, {
-                        "label": "节点相似性",
-                        "value": "NodesSimilarity"
-                    }, {
-                        "label": "社区发现",
-                        "value": "CommunityDetection"
-                    }, {
-                        "label": "节点重要性",
-                        "value": "NodeImportance"
-                    }, {
-                        "label": "模式匹配",
-                        "value": "PatternMatch"
-                    }, {
-                        "label": "信息检测",
-                        "value": "InfoDetection"
-                    }, {
-                        "label": "环路检测Demo",
-                        "value": "LoopDetectionDemo"
-                    }],
-                    "default": []
-                },
-                "visible": {
-                    "title": "默认展开右侧容器",
-                    "type": "boolean",
-                    "x-decorator": "FormItem",
-                    "x-component": "Switch",
-                    "default": true
-                },
-                "width": {
-                    "title": "右侧宽度",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Input",
-                    "x-component-props": {},
-                    "default": "400px"
-                }
-            }, {
-                "id": "GI_CONTAINER_BOTTOM",
-                "name": "底部容器",
-                "GI_CONTAINER": {
-                    "title": "集成组件",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Select",
-                    "x-component-props": {
-                        "mode": "multiple"
-                    },
-                    "enum": [{
-                        "label": "图表分析",
-                        "value": "ChartAnalysis"
-                    }, {
-                        "label": "筛选面板",
-                        "value": "FilterPanel"
-                    }, {
-                        "label": "大图概览",
-                        "value": "Overview"
-                    }, {
-                        "label": "路径分析",
-                        "value": "PathAnalysis"
-                    }, {
-                        "label": "桑基图分析",
-                        "value": "SankeyAnalysis"
-                    }, {
-                        "label": "保存分享",
-                        "value": "Save"
-                    }, {
-                        "label": "Cypher 语句查询",
-                        "value": "CypherQuery"
-                    }, {
-                        "label": "Gremlin 查询",
-                        "value": "GremlinQuery"
-                    }, {
-                        "label": "代码模式",
-                        "value": "JSONMode"
-                    }, {
-                        "label": "路径结构分析",
-                        "value": "StructAnalysis"
-                    }, {
-                        "label": "样式设置",
-                        "value": "StyleSetting"
-                    }, {
-                        "label": "子图布局",
-                        "value": "SubGraphLayout"
-                    }, {
-                        "label": "表格模式",
-                        "value": "TableMode"
-                    }, {
-                        "label": "主题设置",
-                        "value": "ThemeSetting"
-                    }, {
-                        "label": "时间线控制器",
-                        "value": "Timebar"
-                    }, {
-                        "label": "节点聚类",
-                        "value": "NodesClustering"
-                    }, {
-                        "label": "节点相似性",
-                        "value": "NodesSimilarity"
-                    }, {
-                        "label": "社区发现",
-                        "value": "CommunityDetection"
-                    }, {
-                        "label": "节点重要性",
-                        "value": "NodeImportance"
-                    }, {
-                        "label": "模式匹配",
-                        "value": "PatternMatch"
-                    }, {
-                        "label": "信息检测",
-                        "value": "InfoDetection"
-                    }, {
-                        "label": "环路检测Demo",
-                        "value": "LoopDetectionDemo"
-                    }],
-                    "default": []
-                },
-                "visible": {
-                    "title": "默认展开底部容器",
-                    "type": "boolean",
-                    "x-decorator": "FormItem",
-                    "x-component": "Switch",
-                    "default": true
-                },
-                "height": {
-                    "title": "底部高度",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Input",
-                    "x-component-props": {},
-                    "default": "400px"
-                }
-            }, {
-                "id": "GI_CONTAINER_TOP",
-                "name": "顶部容器",
-                "GI_CONTAINER": {
-                    "title": "集成组件",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Select",
-                    "x-component-props": {
-                        "mode": "multiple"
-                    },
-                    "enum": [{
-                        "label": "图表分析",
-                        "value": "ChartAnalysis"
-                    }, {
-                        "label": "筛选面板",
-                        "value": "FilterPanel"
-                    }, {
-                        "label": "大图概览",
-                        "value": "Overview"
-                    }, {
-                        "label": "路径分析",
-                        "value": "PathAnalysis"
-                    }, {
-                        "label": "桑基图分析",
-                        "value": "SankeyAnalysis"
-                    }, {
-                        "label": "保存分享",
-                        "value": "Save"
-                    }, {
-                        "label": "Cypher 语句查询",
-                        "value": "CypherQuery"
-                    }, {
-                        "label": "Gremlin 查询",
-                        "value": "GremlinQuery"
-                    }, {
-                        "label": "代码模式",
-                        "value": "JSONMode"
-                    }, {
-                        "label": "路径结构分析",
-                        "value": "StructAnalysis"
-                    }, {
-                        "label": "样式设置",
-                        "value": "StyleSetting"
-                    }, {
-                        "label": "子图布局",
-                        "value": "SubGraphLayout"
-                    }, {
-                        "label": "表格模式",
-                        "value": "TableMode"
-                    }, {
-                        "label": "主题设置",
-                        "value": "ThemeSetting"
-                    }, {
-                        "label": "时间线控制器",
-                        "value": "Timebar"
-                    }, {
-                        "label": "节点聚类",
-                        "value": "NodesClustering"
-                    }, {
-                        "label": "节点相似性",
-                        "value": "NodesSimilarity"
-                    }, {
-                        "label": "社区发现",
-                        "value": "CommunityDetection"
-                    }, {
-                        "label": "节点重要性",
-                        "value": "NodeImportance"
-                    }, {
-                        "label": "模式匹配",
-                        "value": "PatternMatch"
-                    }, {
-                        "label": "信息检测",
-                        "value": "InfoDetection"
-                    }, {
-                        "label": "环路检测Demo",
-                        "value": "LoopDetectionDemo"
-                    }],
-                    "default": []
-                },
-                "visible": {
-                    "title": "默认展开顶部容器",
-                    "type": "boolean",
-                    "x-decorator": "FormItem",
-                    "x-component": "Switch",
-                    "default": false
-                },
-                "height": {
-                    "title": "顶部高度",
-                    "type": "string",
-                    "x-decorator": "FormItem",
-                    "x-component": "Input",
-                    "x-component-props": {},
-                    "default": "200px"
-                }
-            }]
         }
     }
 };
 
 /** G6VP 站点选择服务引擎的上下文配置信息 **/
 export const SERVER_ENGINE_CONTEXT = {
-    "GI_SITE_PROJECT_ID": "7230647b-2780-450d-a4ae-3b33e27715be",
+    "GI_SITE_PROJECT_ID": "3d9690da-aa97-47fc-9be9-0bd247d9013c",
     "engineId": "GI"
 };
-
 

@@ -4,11 +4,12 @@ export default {
   history: {
     type: 'hash'
   },
+  favicon: '/assets/favicon.png',
 
   nodeModulesTransform: {
     type: "none",
   },
-  routes: [{ exact: true, path: "/", component: "@/pages/index" }],
+  routes: [{ exact: true, path: "/", title: 'Graph Search',component: "@/pages/index" }],
   // antd: {
   //   dark: false,
   //   compact: true,

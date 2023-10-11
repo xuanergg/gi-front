@@ -128,7 +128,7 @@ const enhancerRequest = (method: Method) => {
             maskClickable: false,
           })
         }
-        return Promise.reject(resErrorText)
+        // return Promise.reject(resErrorText)
       }
       return res
     }

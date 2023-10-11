@@ -31,6 +31,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         config: {},
         services: [],
         currId: '',
+        currName: '',
         selectType: 'DFMEA',
         keywords: ''
     });
@@ -41,9 +42,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     const {search} = useLocation()
 
     let searchParams = new URLSearchParams(search)
-    console.log(searchParams.get('type'))
-    console.log(searchParams.get('p1'))
-    console.log(searchParams.get('p2'))
+
 
 
     const getNewlineLength = (val) => {
@@ -83,19 +82,19 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     }
     const goFMEA = async () => {
         const {currId} = state;
-        window.open('https://cn.bing.com/search?q=' + currId);
+        window.open('http://localhost:3202/browseInfo/' + currId+'/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
     };
     const searchData = (data) => {
 
         let date = fetchList({
             data: {
-                domain: "",
-                // "nodeName": "电缸带动工装工件旋转4圈，转",
+                domain:  searchParams.get('p2'),
+                // "nodeName": "",
                 parameters: [
-                    {key: "Name", value: "电缸带动工装工件旋转4圈，转", comparison: ''},
-                    {key: "FmeaType", value: searchParams.get('type'), comparison: ''},
+                    {key: "Name", value: searchParams.get('p1'), comparison: ''},
+                    // {key: "FmeaType", value: searchParams.get('type'), comparison: ''},
                 ],
-                pageSize: 25
+                pageSize: 50
             },
         }).then()
             .then(res => {
@@ -145,7 +144,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                     source: c.sourceId,
                     target: c.targetId,
                     data: c,
-                    edgeType: c['category']
+                    edgeType: c.type
                 }
             });
         }
@@ -169,18 +168,30 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                 service: (params) => {
                     const data = params.data;
                     console.log("data", data);
-                    setState(preState => {
-                        return {
-                            ...preState,
-                            currId: data.名称
-                        }
-                    })
+                    if (data.type == "FMEA") {
+                        setState(preState => {
+                            return {
+                                ...preState,
+                                currId: data.名称,
+                                currName:data.名称
+                            }
+                        });
+                    }else{
+                        setState(preState => {
+                            return {
+                                ...preState,
+                                currId: '',
+                                currName:''
+                            }
+                        });
+                    }
+
                     return new Promise(function (resolve) {
                         return resolve({
                             名称: data.名称,
                             类型: data.type,
-                            ...data,
-                            测试: "测试" + Math.random(),
+                            融合: data.Aggregations||'',
+                            编号: data.fmeanos||'',
                         });
                     });
 
@@ -192,7 +203,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
 
                     return fetchMoreRelationNode({
                             params: {
-                                domain: 'Person',
+                                domain: '',
                                 nodeId: ReqNeighborsQuery.ids[0],
                                 pageSize: 50
                             }
@@ -222,7 +233,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             })
         })
     }, []);
-    const {assets, isReady, config, services, currId, selectType, keywords} = state;
+    const {assets, isReady, config, services, currId,currName, selectType, keywords} = state;
 
     if (!isReady) {
         return <div>loading...</div>
@@ -278,8 +289,19 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             {/*        </Form>*/}
             {/*    </Card>*/}
             {/*</div>*/}
-            <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100}}>
+            <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100,display:"flex"}}>
                 <ThemeSwitch></ThemeSwitch>
+                <Form.Item
+                    name="fmea">
+                    {
+                        currName ? (
+                            <Tooltip title="search">
+                                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}
+                                        onClick={() => {
+                                            goFMEA();
+                                        }}>{currName}</Button>
+                            </Tooltip>) : null}
+                </Form.Item>
             </div>
             <div style={{height: "100vh"}}>
                 {/** @ts-ignore */}

@@ -77,7 +77,7 @@ export const defaultTransFn = (data, params) => {
 };
 export const getServicesByConfig = (serviceConfig, LOCAL_DATA) => {
     return serviceConfig.map((s) => {
-        debugger
+
         const { id, content, mode } = s;
         const runtimeContent = content?.split("export default")[1] || content;
         const transFn = looseJsonParse(runtimeContent);
