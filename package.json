@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "umi dev",
-    "docs": "umi dev --dumi"
+    "docs": "umi dev --dumi",
+    "build": "umi build"
   },
   "dependencies": {
     "@umijs/plugin-antd": "^0.15.2",

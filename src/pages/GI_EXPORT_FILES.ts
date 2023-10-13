@@ -583,7 +583,7 @@ export const GI_PROJECT_CONFIG = {
         "type": "GICC",
         "name": "工具栏",
         "props": {
-            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "Export", "LargeGraph"],
+            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "Export", "LargeGraph", "LayoutSwitch"],
             "direction": "vertical",
             "placement": "LT",
             "offset": [20, 40]
@@ -646,6 +646,30 @@ export const GI_PROJECT_CONFIG = {
                 "isVertical": true
             }
         }
+    }, {
+        "id": "LayoutSwitch",
+        "type": "GIAC",
+        "name": "布局切换",
+        "props": {
+            "GI_CONTAINER_INDEX": 2,
+            "GIAC": {
+                "visible": false,
+                "disabled": false,
+                "isShowTitle": false,
+                "title": "布局切换",
+                "isShowIcon": true,
+                "icon": "icon-layout",
+                "iconFontSize": "18px",
+                "buttonType": "text",
+                "isShowTooltip": false,
+                "tooltip": "一键切换画布布局",
+                "tooltipColor": "#3056e3",
+                "tooltipPlacement": "right",
+                "hasDivider": false,
+                "height": "46px",
+                "isVertical": true
+            }
+        }
     }],
     "layout": {
         "id": "Force2",
@@ -676,7 +700,16 @@ export const GI_PROJECT_CONFIG = {
                 "single": 2,
                 "others": 1
             },
-            "advanceWeight": false
+            "advanceWeight": false,
+            "edgeWeightFieldScale": 1,
+            "nodeWeightFromType": "node",
+            "nodeWeightFieldScale": 1,
+            "directed": false,
+            "directedFromType": "node",
+            "directedInWeightField": "s",
+            "directedOutWeightField": "s",
+            "directedIsLog": true,
+            "directedMultiple": "0.1"
         }
     },
     "pageLayout": {
