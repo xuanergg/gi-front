@@ -48,10 +48,10 @@ export default {
   ],
   devServer: {
     proxy: {
-      '/fmea': {
+      '/fmeakg': {
         target: 'http://localhost:8088',
         'changeOrigin': true,
-        'pathRewrite': { '^/fmea' : '' },
+        'pathRewrite': { '^/fmeakg' : '' },
       },
     },
   },

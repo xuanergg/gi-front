@@ -52,7 +52,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(0,0,0,0.76)",
+            "color": "rgba(147,190,243,1)",
             "label": ["发现措施^^name"],
             "advanced": {
                 "icon": {
@@ -85,7 +85,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(0,0,0,0.18)",
+            "color": "rgba(74,144,226,1)",
             "label": ["防范措施^^name"],
             "advanced": {
                 "icon": {
@@ -118,7 +118,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#FF00008C",
+            "color": "rgba(255,0,0,0.66)",
             "label": ["失效^^name"],
             "advanced": {
                 "icon": {
@@ -184,7 +184,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#0000008C",
+            "color": "rgba(245,166,35,1)",
             "label": ["组件^^name"],
             "advanced": {
                 "icon": {
@@ -516,8 +516,8 @@ export const GI_PROJECT_CONFIG = {
                 "title": "大图概览",
                 "isShowIcon": true,
                 "icon": "icon-dashboard",
-                "isShowTooltip": true,
-                "tooltip": "",
+                "isShowTooltip": false,
+                "tooltip": "123",
                 "tooltipColor": "#3056e3",
                 "tooltipPlacement": "right",
                 "hasDivider": false,
@@ -583,7 +583,7 @@ export const GI_PROJECT_CONFIG = {
         "type": "GICC",
         "name": "工具栏",
         "props": {
-            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "Export", "LargeGraph", "LayoutSwitch"],
+            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "Export", "LargeGraph"],
             "direction": "vertical",
             "placement": "LT",
             "offset": [20, 40]
@@ -646,36 +646,12 @@ export const GI_PROJECT_CONFIG = {
                 "isVertical": true
             }
         }
-    }, {
-        "id": "LayoutSwitch",
-        "type": "GIAC",
-        "name": "布局切换",
-        "props": {
-            "GI_CONTAINER_INDEX": 2,
-            "GIAC": {
-                "visible": false,
-                "disabled": false,
-                "isShowTitle": false,
-                "title": "布局切换",
-                "isShowIcon": true,
-                "icon": "icon-layout",
-                "iconFontSize": "18px",
-                "buttonType": "text",
-                "isShowTooltip": false,
-                "tooltip": "一键切换画布布局",
-                "tooltipColor": "#3056e3",
-                "tooltipPlacement": "right",
-                "hasDivider": false,
-                "height": "46px",
-                "isVertical": true
-            }
-        }
     }],
     "layout": {
         "id": "Force2",
         "props": {
             "type": "force2",
-            "animate": false,
+            "animate": true,
             "preset": {
                 "type": "concentric",
                 "width": 1000,

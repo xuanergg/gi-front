@@ -45,7 +45,7 @@ function errorHandler(error: ResponseError<any>) {
 
 // 默认配置
 const request = extend({
-  prefix: '/fmea',
+  prefix: '/fmeakg',
   timeout: 60000,
   errorHandler,
 })

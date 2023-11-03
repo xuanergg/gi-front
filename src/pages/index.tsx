@@ -129,7 +129,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             nodes = data.node.map(c => {
                 let fname = c.title || c.Name;
                 c.名称 = fname;
-                c.name = getNewline(fname, 100, 14, 2);
+                c.name = getNewline(fname, 100, 14, 3);
                 c.type = c.labelsName
                 return {
                     id: c.uuid,
@@ -187,12 +187,21 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                     }
 
                     return new Promise(function (resolve) {
-                        return resolve({
+                        let newVar = {
                             名称: data.名称,
                             类型: data.type,
                             融合: data.Aggregations||'',
-                            编号: data.fmeanos||'',
-                        });
+                        };
+                        if (data.fmeanos) {
+                            let replaceAll = data.fmeanos.split(',');
+                            console.log(replaceAll)
+                            if (replaceAll) {
+                                for (let i = 0; i < replaceAll.length; i++) {
+                                    newVar['编号' + (i+1)] = replaceAll[i];
+                                }
+                            }
+                        }
+                        return resolve(newVar);
                     });
 
                 }
@@ -200,12 +209,11 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             NeighborsQuery: {
                 id: "NeighborsQuery",
                 service: (ReqNeighborsQuery) => {
-
                     return fetchMoreRelationNode({
                             params: {
                                 domain: '',
                                 nodeId: ReqNeighborsQuery.ids[0],
-                                pageSize: 50
+                                pageSize: (ReqNeighborsQuery.code||1)*50
                             }
                         }
                     ).then()
