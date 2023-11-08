@@ -8,6 +8,8 @@ import ThemeSwitch from "../components/Theme";
 import {getList, getMoreRelationNode} from '@/api/index';
 import {useRequest} from 'ahooks';
 import {useLocation} from 'umi';
+import {GI_SERVICES_OPTIONS} from "./GI_AS_DATA";
+import {getCombinedAssets, getServicesByConfig} from "../util/utils";
 
 const InputGroup = Input.Group;
 const {Option} = Select;
@@ -16,13 +18,6 @@ window['GI_PUBLIC_PATH'] = '/public/';
 
 interface AppProps {
 }
-
-//@ts-ignore
-const {getCombineServices, loaderCombinedAssets} = window.GISDK.utils;
-const {GI_SITE_PROJECT_ID} = SERVER_ENGINE_CONTEXT;
-// 设置引擎上下文
-window.localStorage.setItem('SERVER_ENGINE_CONTEXT', JSON.stringify(SERVER_ENGINE_CONTEXT));
-
 
 const App: React.FunctionComponent<AppProps> = (props) => {
     const [state, setState] = React.useState({
@@ -43,7 +38,101 @@ const App: React.FunctionComponent<AppProps> = (props) => {
 
     let searchParams = new URLSearchParams(search)
 
+    const getAssets = getCombinedAssets();
+    const getServices = getServicesByConfig(GI_SERVICES_OPTIONS, null);
 
+
+    const MyServices = getServices.map((c) => {
+
+        if (c.id === "GI/GI_SERVICE_SCHEMA") {
+            return {
+                ...c,
+                service: (localData, schemaData) => {
+                    return new Promise((resolve) => {
+                        resolve(
+                            GI_SCHEMA_DATA
+                        )
+                    })
+                },
+            };
+        }
+
+        if (c.id === "GI/PropertiesPanel") {
+            return {
+                ...c,
+                service: (params) => {
+                    const data = params.data;
+                    console.log("data", data);
+                    if (data.type == "FMEA") {
+                        setState(preState => {
+                            return {
+                                ...preState,
+                                currId: data.名称,
+                                currName: data.名称
+                            }
+                        });
+                    } else {
+                        setState(preState => {
+                            return {
+                                ...preState,
+                                currId: '',
+                                currName: ''
+                            }
+                        });
+                    }
+
+                    return new Promise(function (resolve) {
+                        let newVar = {
+                            名称: data.名称,
+                            类型: data.type,
+                            融合: data.Aggregations || '',
+                        };
+                        if (data.fmeanos) {
+                            let replaceAll = data.fmeanos.split(',');
+                            console.log(replaceAll)
+                            if (replaceAll) {
+                                for (let i = 0; i < replaceAll.length; i++) {
+                                    newVar['编号' + (i + 1)] = replaceAll[i];
+                                }
+                            }
+                        }
+                        return resolve(newVar);
+                    });
+                },
+            };
+        }
+
+
+        if (c.id === "GI/GI_SERVICE_INTIAL_GRAPH") {
+            return {
+                ...c,
+                service: (params, localData) => {
+                    let date = searchData(null);
+                    return date
+                },
+            };
+        }
+
+        if (c.id === "GI/NeighborsQuery") {
+            return {
+                ...c,
+                service: (ReqNeighborsQuery) => {
+                    return fetchMoreRelationNode({
+                            params: {
+                                domain: '',
+                                nodeId: ReqNeighborsQuery.ids[0],
+                                pageSize: (ReqNeighborsQuery.code || 1) * 50
+                            }
+                        }
+                    ).then()
+                        .then(res => {
+                            return transform(res.data);
+                        })
+                },
+            };
+        }
+        return c;
+    });
 
     const getNewlineLength = (val) => {
         let str = String(val);
@@ -82,13 +171,13 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     }
     const goFMEA = async () => {
         const {currId} = state;
-        window.open('http://localhost:3202/browseInfo/' + currId+'/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
+        window.open('http://localhost:3202/browseInfo/' + currId + '/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
     };
     const searchData = (data) => {
 
         let date = fetchList({
             data: {
-                domain:  searchParams.get('p2'),
+                domain: searchParams.get('p2'),
                 // "nodeName": "",
                 parameters: [
                     {key: "Name", value: searchParams.get('p1'), comparison: ''},
@@ -152,96 +241,20 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     }
 
 
-    const MyServer = {
-        id: "GI",
-        name: "my services",
-        services: {
-            GI_SERVICE_INTIAL_GRAPH: {
-                id: "GI_SERVICE_INTIAL_GRAPH",
-                service: () => {
-                    let date = searchData(null);
-                    return date
-                }
-            },
-            PropertiesPanel: {
-                id: "PropertiesPanel",
-                service: (params) => {
-                    const data = params.data;
-                    console.log("data", data);
-                    if (data.type == "FMEA") {
-                        setState(preState => {
-                            return {
-                                ...preState,
-                                currId: data.名称,
-                                currName:data.名称
-                            }
-                        });
-                    }else{
-                        setState(preState => {
-                            return {
-                                ...preState,
-                                currId: '',
-                                currName:''
-                            }
-                        });
-                    }
-
-                    return new Promise(function (resolve) {
-                        let newVar = {
-                            名称: data.名称,
-                            类型: data.type,
-                            融合: data.Aggregations||'',
-                        };
-                        if (data.fmeanos) {
-                            let replaceAll = data.fmeanos.split(',');
-                            console.log(replaceAll)
-                            if (replaceAll) {
-                                for (let i = 0; i < replaceAll.length; i++) {
-                                    newVar['编号' + (i+1)] = replaceAll[i];
-                                }
-                            }
-                        }
-                        return resolve(newVar);
-                    });
-
-                }
-            },
-            NeighborsQuery: {
-                id: "NeighborsQuery",
-                service: (ReqNeighborsQuery) => {
-                    return fetchMoreRelationNode({
-                            params: {
-                                domain: '',
-                                nodeId: ReqNeighborsQuery.ids[0],
-                                pageSize: (ReqNeighborsQuery.code||1)*50
-                            }
-                        }
-                    ).then()
-                        .then(res => {
-                            return transform(res.data);
-                        })
-                }
-            },
-
-        }
-    }
     React.useEffect(() => {
-        console.log(GI_SCHEMA_DATA);
-        loaderCombinedAssets(GI_ASSETS_PACKAGE).then(res => {
-            let myServices = [...res.services, MyServer];
-            const services = getCombineServices(myServices)
-            setState(preState => {
-                return {
-                    ...preState,
-                    isReady: true,
-                    assets: res,
-                    services,
-                    config: GI_PROJECT_CONFIG,
-                }
-            })
+
+        setState(preState => {
+            return {
+                ...preState,
+                isReady: true,
+                assets: getAssets,
+                services: MyServices,
+                config: GI_PROJECT_CONFIG,
+            }
         })
+        // })
     }, []);
-    const {assets, isReady, config, services, currId,currName, selectType, keywords} = state;
+    const {assets, isReady, config, services, currId, currName, selectType, keywords} = state;
 
     if (!isReady) {
         return <div>loading...</div>
@@ -297,7 +310,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             {/*        </Form>*/}
             {/*    </Card>*/}
             {/*</div>*/}
-            <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100,display:"flex"}}>
+            <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100, display: "flex"}}>
                 <ThemeSwitch></ThemeSwitch>
                 <Form.Item
                     name="fmea">

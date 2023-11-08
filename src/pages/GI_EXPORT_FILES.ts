@@ -52,7 +52,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(147,190,243,1)",
+            "color": "rgb(197,222,253)",
             "label": ["发现措施^^name"],
             "advanced": {
                 "icon": {
@@ -85,7 +85,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(74,144,226,1)",
+            "color": "rgb(48,138,243)",
             "label": ["防范措施^^name"],
             "advanced": {
                 "icon": {
@@ -118,7 +118,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(255,0,0,0.66)",
+            "color": "#af1e1e",
             "label": ["失效^^name"],
             "advanced": {
                 "icon": {
@@ -151,7 +151,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#0080008C",
+            "color": "#7dff00",
             "label": ["功能^^name"],
             "advanced": {
                 "icon": {
@@ -184,7 +184,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "rgba(245,166,35,1)",
+            "color": "#ba8540",
             "label": ["组件^^name"],
             "advanced": {
                 "icon": {

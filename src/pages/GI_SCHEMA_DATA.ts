@@ -1,9 +1,6 @@
 
 /** G6VP 站点 本地上传的数据的 Schema 信息 **/
-export const GI_SCHEMA_DATA = {}
-
-window['LOCAL_DATA_FOR_GI_ENGINE'] = {
-    schemaData: {
+export const GI_SCHEMA_DATA =  {
         "nodes": [{
             "nodeType": "发现措施",
             "nodeTypeKeyFromProperties": "type",
@@ -87,6 +84,5 @@ window['LOCAL_DATA_FOR_GI_ENGINE'] = {
                 "target": "string"
             }
         }]
-    },
 };
 
