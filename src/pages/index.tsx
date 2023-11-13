@@ -1,5 +1,5 @@
 import React from "react";
-import {GI_ASSETS_PACKAGE, GI_PROJECT_CONFIG, SERVER_ENGINE_CONTEXT} from "./GI_EXPORT_FILES";
+import {GI_PROJECT_CONFIG, SERVER_ENGINE_CONTEXT} from "./GI_EXPORT_FILES";
 import {GI_SCHEMA_DATA} from "./GI_SCHEMA_DATA";
 import './index.less'
 import {Button, Card, Form, Input, Select, Tooltip} from 'antd';
@@ -85,7 +85,15 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                         let newVar = {
                             名称: data.名称,
                             类型: data.type,
-                            融合: data.Aggregations || '',
+                            FMEANO: data.FMEANO || '',
+                            工厂: data.productionPlant || '',
+                            部门: data.fmeaRespDept || '',
+                            FMEA责任人: data.fmeaRespName || '',
+                            产线: data.productionLine || '',
+                            项目名称: data.projectName || '',
+                            项目NO: data.projectNo || '',
+                            PH1: data.ph1 || '',
+                            PH2: data.ph2 || '',
                         };
                         if (data.fmeanos) {
                             let replaceAll = data.fmeanos.split(',');
@@ -121,7 +129,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                             params: {
                                 domain: '',
                                 nodeId: ReqNeighborsQuery.ids[0],
-                                pageSize: (ReqNeighborsQuery.code || 1) * 50
+                                pageSize: 6000
                             }
                         }
                     ).then()
@@ -174,16 +182,65 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         window.open('http://localhost:3202/browseInfo/' + currId + '/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
     };
     const searchData = (data) => {
+        let parameters = [];
+        if (searchParams.get('keyword')) {
+            parameters.push({key: "Name", value: searchParams.get('keyword'), comparison: ''});
+        }
+        if (searchParams.get('ap')) {
+            parameters.push({key: "ap", value: searchParams.get('ap'), comparison: ''});
+        }
+        if (searchParams.get('fmeaType')) {
+            parameters.push({key: "fmeaType", value: searchParams.get('fmeaType'), comparison: ''})
+        }
+        let level = searchParams.get('kind');
+        let p1 = ''
+        if (level == '1') {
+            p1 = '结构组件'
+        }
+        if (level == '2') {
+            p1 = '功能'
+        }
+        if (level == '3') {
+            p1 = '失效'
+        }
+        if (level == '4') {
+            p1 = '措施'
+        }
+        if (searchParams.get('projectNo')) {
+            parameters.push({key: "projectNo", value: searchParams.get('projectNo'), comparison: ''});
+        }
+
+        if (searchParams.get('fmeaNo')) {
+            parameters.push({key: "fmeaNo", value: searchParams.get('fmeaNo'), comparison: ''})
+        }
+
+        if (searchParams.get('ph1')) {
+            parameters.push({key: "ph1", value: searchParams.get('ph1'), comparison: ''})
+        }
+
+        if (searchParams.get('ph2')) {
+            parameters.push({key: "ph2", value: searchParams.get('ph2'), comparison: ''})
+        }
+
+        // if (searchParams.get('product0No')) {
+        //     parameters.push({key: "product0No", value: searchParams.get('product0No'), comparison: ''})
+        // }
+        // if (searchParams.get('productBNo')) {
+        //     parameters.push({key: "productBNo", value: searchParams.get('productBNo'), comparison: ''})
+        // }
+
+        let pageSize = 6000;
+
+        if (!p1) {
+            pageSize = 1000
+        }
 
         let date = fetchList({
             data: {
-                domain: searchParams.get('p2'),
+                domain: p1 || '',
                 // "nodeName": "",
-                parameters: [
-                    {key: "Name", value: searchParams.get('p1'), comparison: ''},
-                    // {key: "FmeaType", value: searchParams.get('type'), comparison: ''},
-                ],
-                pageSize: 50
+                parameters: parameters,
+                pageSize: pageSize
             },
         }).then()
             .then(res => {
@@ -312,17 +369,17 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             {/*</div>*/}
             <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100, display: "flex"}}>
                 <ThemeSwitch></ThemeSwitch>
-                <Form.Item
-                    name="fmea">
-                    {
-                        currName ? (
-                            <Tooltip title="search">
-                                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}
-                                        onClick={() => {
-                                            goFMEA();
-                                        }}>{currName}</Button>
-                            </Tooltip>) : null}
-                </Form.Item>
+                {/*<Form.Item*/}
+                {/*    name="fmea">*/}
+                {/*    {*/}
+                {/*        currName ? (*/}
+                {/*            <Tooltip title="search">*/}
+                {/*                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}*/}
+                {/*                        onClick={() => {*/}
+                {/*                            goFMEA();*/}
+                {/*                        }}>{currName}</Button>*/}
+                {/*            </Tooltip>) : null}*/}
+                {/*</Form.Item>*/}
             </div>
             <div style={{height: "100vh"}}>
                 {/** @ts-ignore */}

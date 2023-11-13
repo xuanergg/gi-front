@@ -118,7 +118,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#af1e1e",
+            "color": "#b0282e",
             "label": ["失效^^name"],
             "advanced": {
                 "icon": {
@@ -151,7 +151,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#7dff00",
+            "color": "#74ff08",
             "label": ["功能^^name"],
             "advanced": {
                 "icon": {
@@ -184,7 +184,7 @@ export const GI_PROJECT_CONFIG = {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#ba8540",
+            "color": "#ab7233",
             "label": ["组件^^name"],
             "advanced": {
                 "icon": {
@@ -286,7 +286,8 @@ export const GI_PROJECT_CONFIG = {
         "type": "GICC_MENU",
         "name": "右键菜单",
         "props": {
-            "GI_CONTAINER": ["NeighborsQuery", "ToggleClusterWithMenu", "PinNodeWithMenu"]
+            "GI_CONTAINER": ["NeighborsQuery", "ToggleClusterWithMenu", "PinNodeWithMenu"],
+            "nodeMenuComponents": ["NeighborsQuery", "ToggleClusterWithMenu", "PinNodeWithMenu"]
         }
     }, {
         "id": "DownLoad",
@@ -305,30 +306,6 @@ export const GI_PROJECT_CONFIG = {
                 "buttonType": "text",
                 "isShowTooltip": true,
                 "tooltip": "点击下载画布图片",
-                "tooltipColor": "#3056e3",
-                "tooltipPlacement": "right",
-                "hasDivider": false,
-                "height": "46px",
-                "isVertical": true
-            }
-        }
-    }, {
-        "id": "Export",
-        "type": "GIAC",
-        "name": "导出",
-        "props": {
-            "GI_CONTAINER_INDEX": 2,
-            "GIAC": {
-                "visible": false,
-                "disabled": false,
-                "isShowTitle": false,
-                "title": "导出",
-                "isShowIcon": true,
-                "icon": "icon-export",
-                "iconFontSize": "18px",
-                "buttonType": "text",
-                "isShowTooltip": true,
-                "tooltip": "导出CSV,PNG,JSON数据",
                 "tooltipColor": "#3056e3",
                 "tooltipPlacement": "right",
                 "hasDivider": false,
@@ -450,9 +427,7 @@ export const GI_PROJECT_CONFIG = {
         "name": "3D大图",
         "props": {
             "visible": false,
-            "backgroundColor": "#fff",
-            "highlightColor": "red",
-            "minSize": "20%",
+            "minSize": "50%",
             "maxSize": "100%",
             "placement": "RB",
             "offset": [0, 0],
@@ -464,6 +439,44 @@ export const GI_PROJECT_CONFIG = {
                 "title": "3D大图",
                 "isShowIcon": true,
                 "icon": "icon-3d",
+                "isShowTooltip": true,
+                "tooltip": "",
+                "tooltipColor": "#3056e3",
+                "tooltipPlacement": "right",
+                "hasDivider": false,
+                "height": "46px",
+                "isVertical": true
+            },
+            "backgroundColor": "#fff",
+            "highlightColor": "red"
+        }
+    }, {
+        "id": "Loading",
+        "type": "AUTO",
+        "name": "加载动画",
+        "props": {}
+    }, {
+        "id": "MapMode",
+        "type": "GIAC",
+        "name": "地图模式",
+        "props": {
+            "visible": false,
+            "type": "amap",
+            "theme": "light",
+            "minSize": "20%",
+            "maxSize": "100%",
+            "placement": "RB",
+            "offset": [0, 0],
+            "longitudeKey": "longitude",
+            "latitudeKey": "latitude",
+            "GI_CONTAINER_INDEX": 2,
+            "GIAC": {
+                "visible": false,
+                "disabled": false,
+                "isShowTitle": false,
+                "title": "地图模式",
+                "isShowIcon": true,
+                "icon": "icon-global",
                 "iconFontSize": "18px",
                 "buttonType": "text",
                 "isShowTooltip": true,
@@ -476,19 +489,23 @@ export const GI_PROJECT_CONFIG = {
             }
         }
     }, {
-        "id": "Loading",
-        "type": "AUTO",
-        "name": "加载动画",
-        "props": {}
+        "id": "ModeSwitch",
+        "type": "GICC",
+        "name": "模式切换",
+        "props": {
+            "GI_CONTAINER": ["TableMode"],
+            "placement": "LT",
+            "offset": [16, 8]
+        }
     }, {
         "id": "NeighborsQuery",
         "type": "GIAC_MENU",
         "name": "邻居查询",
         "props": {
             "serviceId": "GI/NeighborsQuery",
-            "menuServiceId": "GI/NeighborsQueryMenu",
-            "degree": 3,
+            "degree": "1",
             "isFocus": true,
+            "menuServiceId": "GI/NeighborsQueryMenu",
             "limit": 100
         }
     }, {
@@ -502,43 +519,13 @@ export const GI_PROJECT_CONFIG = {
             "offset": [100, 20]
         }
     }, {
-        "id": "Overview",
-        "type": "GIAC_CONTENT",
-        "name": "大图概览",
-        "props": {
-            "limit": 6000,
-            "filterLogic": "and",
-            "GI_CONTAINER_INDEX": 2,
-            "GIAC_CONTENT": {
-                "visible": false,
-                "disabled": false,
-                "isShowTitle": true,
-                "title": "大图概览",
-                "isShowIcon": true,
-                "icon": "icon-dashboard",
-                "isShowTooltip": false,
-                "tooltip": "123",
-                "tooltipColor": "#3056e3",
-                "tooltipPlacement": "right",
-                "hasDivider": false,
-                "height": "60px",
-                "isVertical": true,
-                "containerType": "div",
-                "containerAnimate": false,
-                "containerDraggable": false,
-                "dragHandle": "header",
-                "containerPlacement": "RT",
-                "offset": [0, 0],
-                "containerWidth": "400px",
-                "containerHeight": "calc(100% - 100px)",
-                "contaienrMask": false
-            }
-        }
-    }, {
         "id": "PinNodeWithMenu",
         "type": "GIAC_MENU",
         "name": "固定节点(MENU)",
-        "props": {}
+        "props": {
+            "color": "#fff",
+            "fill": "#262626"
+        }
     }, {
         "id": "Placeholder",
         "type": "AUTO",
@@ -583,10 +570,10 @@ export const GI_PROJECT_CONFIG = {
         "type": "GICC",
         "name": "工具栏",
         "props": {
-            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "Export", "LargeGraph"],
+            "GI_CONTAINER": ["ZoomOut", "ZoomIn", "FitCenterView", "DownLoad", "LargeGraph"],
             "direction": "vertical",
             "placement": "LT",
-            "offset": [20, 40]
+            "offset": [24, 64]
         }
     }, {
         "id": "Tooltip",
@@ -611,8 +598,6 @@ export const GI_PROJECT_CONFIG = {
                 "title": "放大",
                 "isShowIcon": true,
                 "icon": "icon-zoomin",
-                "iconFontSize": "18px",
-                "buttonType": "text",
                 "isShowTooltip": true,
                 "tooltip": "",
                 "tooltipColor": "#3056e3",
@@ -635,8 +620,6 @@ export const GI_PROJECT_CONFIG = {
                 "title": "缩小",
                 "isShowIcon": true,
                 "icon": "icon-zoomout",
-                "iconFontSize": "18px",
-                "buttonType": "text",
                 "isShowTooltip": true,
                 "tooltip": "",
                 "tooltipColor": "#3056e3",
@@ -644,6 +627,42 @@ export const GI_PROJECT_CONFIG = {
                 "hasDivider": false,
                 "height": "46px",
                 "isVertical": true
+            }
+        }
+    }, {
+        "id": "TableMode",
+        "type": "GIAC_CONTENT",
+        "name": "表格模式",
+        "props": {
+            "enableCopy": true,
+            "exportable": true,
+            "enableTabSplitScreen": true,
+            "isSelectedActive": true,
+            "targetWindowPath": "/#/tabs/table",
+            "GI_CONTAINER_INDEX": 2,
+            "GIAC_CONTENT": {
+                "visible": false,
+                "disabled": false,
+                "isShowTitle": true,
+                "title": "表格模式",
+                "isShowIcon": true,
+                "icon": "icon-table",
+                "isShowTooltip": true,
+                "tooltip": "将画布中的节点和边以表格形式展示",
+                "tooltipColor": "#3056e3",
+                "tooltipPlacement": "right",
+                "hasDivider": false,
+                "height": "60px",
+                "isVertical": true,
+                "containerType": "div",
+                "containerAnimate": false,
+                "containerDraggable": false,
+                "dragHandle": "header",
+                "containerPlacement": "RT",
+                "offset": [0, 0],
+                "containerWidth": "400px",
+                "containerHeight": "calc(100% - 100px)",
+                "contaienrMask": false
             }
         }
     }],
@@ -697,9 +716,6 @@ export const GI_PROJECT_CONFIG = {
                 "id": "GI_CONTAINER_LEFT",
                 "name": "左侧容器",
                 "GI_CONTAINER": [{
-                    "value": "Overview",
-                    "label": "大图概览"
-                }, {
                     "value": "FilterPanel",
                     "label": "筛选面板"
                 }],
@@ -773,9 +789,6 @@ export const GI_PROJECT_CONFIG = {
                     }, {
                         "value": "PropertyGraphInitializer",
                         "label": "属性图计算"
-                    }, {
-                        "value": "Tooltip",
-                        "label": "节点提示框"
                     }]
                 },
                 "candidateAssets": [{
@@ -827,8 +840,8 @@ export const GI_PROJECT_CONFIG = {
                     "label": "多画布页签",
                     "value": "Sheetbar"
                 }],
-                "GI_CONTAINER": ["CanvasSetting", "Initializer", "ActivateRelations", "Loading", "NodeLegend",
-                    "Placeholder", "PropertiesPanel", "PropertyGraphInitializer", "Tooltip"
+                "GI_CONTAINER": ["CanvasSetting", "Initializer", "PropertyGraphInitializer", "Tooltip", "ActivateRelations",
+                    "Placeholder", "Loading", "PropertiesPanel", "NodeLegend"
                 ],
                 "display": true
             }]
@@ -838,7 +851,6 @@ export const GI_PROJECT_CONFIG = {
 
 /** G6VP 站点选择服务引擎的上下文配置信息 **/
 export const SERVER_ENGINE_CONTEXT = {
-    "GI_SITE_PROJECT_ID": "3d9690da-aa97-47fc-9be9-0bd247d9013c",
+    "GI_SITE_PROJECT_ID": "2c0cceb1-372a-4702-9a1c-8c93a45f0fc9",
     "engineId": "GI"
 };
-

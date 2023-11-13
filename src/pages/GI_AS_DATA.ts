@@ -9,7 +9,7 @@ export const GI_SERVICES_OPTIONS = [
     {
         id: "GI/NeighborsQueryMenu",
         content:
-            'export default (e,t)=>{const{id:n}=e;console.log("邻居查询",e);const r=[{label: "一层查询", code: 1},{label: "二层查询", code: 2}];return new Promise((e=>e(r)))}',
+            'export default (e,t)=>{const{id:n}=e;console.log("邻居查询",e);const r=[{label: "关联查询", code: 1}];return new Promise((e=>e(r)))}',
         mode: "MOCK",
         name: "GI/NeighborsQueryMenu",
     },
