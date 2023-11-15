@@ -275,7 +275,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             nodes = data.node.map(c => {
                 let fname = c.title || c.Name;
                 c.名称 = fname;
-                c.name = getNewline(fname, 100, 14, 3);
+                c.name = getNewline(fname, 100, 14, 5);
                 c.type = c.labelsName
                 return {
                     id: c.uuid,

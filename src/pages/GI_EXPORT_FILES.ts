@@ -38,7 +38,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
@@ -67,7 +68,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
@@ -100,7 +102,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
@@ -133,7 +136,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
@@ -166,7 +170,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
@@ -199,7 +204,8 @@ export const GI_PROJECT_CONFIG = {
                     "visible": true,
                     "fill": "#000",
                     "fontSize": 20,
-                    "position": "center"
+                    "position": "center",
+                    offset: [0, 35],
                 },
                 "badge": {
                     "visible": false
