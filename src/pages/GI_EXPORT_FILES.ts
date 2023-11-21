@@ -24,7 +24,7 @@ export const GI_PROJECT_CONFIG = {
         "props": {
             "size": 200,
             "color": "#ddd",
-            "label": ["发现措施^^name"],
+            "label": ["探测措施^^name"],
             "advanced": {
                 "icon": {
                     "type": "font",
@@ -54,7 +54,7 @@ export const GI_PROJECT_CONFIG = {
         "props": {
             "size": 200,
             "color": "rgb(197,222,253)",
-            "label": ["发现措施^^name"],
+            "label": ["探测措施^^name"],
             "advanced": {
                 "icon": {
                     "type": "font",
@@ -76,11 +76,11 @@ export const GI_PROJECT_CONFIG = {
                 }
             }
         },
-        "groupName": "发现措施 TYPE",
+        "groupName": "探测措施 TYPE",
         "expressions": [{
             "name": "type",
             "operator": "eql",
-            "value": "发现措施"
+            "value": "探测措施"
         }],
         "logic": true
     }, {
@@ -88,7 +88,7 @@ export const GI_PROJECT_CONFIG = {
         "props": {
             "size": 200,
             "color": "rgb(48,138,243)",
-            "label": ["防范措施^^name"],
+            "label": ["预防措施^^name"],
             "advanced": {
                 "icon": {
                     "type": "font",
@@ -110,18 +110,18 @@ export const GI_PROJECT_CONFIG = {
                 }
             }
         },
-        "groupName": "防范措施 TYPE",
+        "groupName": "预防措施 TYPE",
         "expressions": [{
             "name": "type",
             "operator": "eql",
-            "value": "防范措施"
+            "value": "预防措施"
         }],
         "logic": true
     }, {
         "id": "SimpleNode",
         "props": {
             "size": 200,
-            "color": "#b0282e",
+            "color": "#dc0009",
             "label": ["失效^^name"],
             "advanced": {
                 "icon": {
@@ -190,7 +190,7 @@ export const GI_PROJECT_CONFIG = {
         "props": {
             "size": 200,
             "color": "#ab7233",
-            "label": ["组件^^name"],
+            "label": ["结构组件^^name"],
             "advanced": {
                 "icon": {
                     "type": "font",
@@ -212,11 +212,11 @@ export const GI_PROJECT_CONFIG = {
                 }
             }
         },
-        "groupName": "组件 TYPE",
+        "groupName": "结构组件 TYPE",
         "expressions": [{
             "name": "type",
             "operator": "eql",
-            "value": "组件"
+            "value": "结构组件"
         }],
         "logic": true
     }],

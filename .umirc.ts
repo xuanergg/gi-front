@@ -61,6 +61,10 @@ export default {
         'changeOrigin': true,
         'pathRewrite': { '^/fmeakg' : '' },
       },
+      '/fmea': {
+        target: 'http://localhost:8080',
+        'changeOrigin': true,
+      },
     },
   },
 };

@@ -2,10 +2,11 @@ import React from "react";
 import {GI_PROJECT_CONFIG, SERVER_ENGINE_CONTEXT} from "./GI_EXPORT_FILES";
 import {GI_SCHEMA_DATA} from "./GI_SCHEMA_DATA";
 import './index.less'
-import {Button, Card, Form, Input, Select, Tooltip} from 'antd';
+import {Button, Space, Form, Input, Select, Tooltip} from 'antd';
 import {SearchOutlined} from '@ant-design/icons';
 import ThemeSwitch from "../components/Theme";
 import {getList, getMoreRelationNode} from '@/api/index';
+import {getList2} from '@/api/fmea';
 import {useRequest} from 'ahooks';
 import {useLocation} from 'umi';
 import {GI_SERVICES_OPTIONS} from "./GI_AS_DATA";
@@ -13,6 +14,7 @@ import {getCombinedAssets, getServicesByConfig} from "../util/utils";
 
 const InputGroup = Input.Group;
 const {Option} = Select;
+import { Table, Drawer } from 'antd';
 
 window['GI_PUBLIC_PATH'] = '/public/';
 
@@ -28,11 +30,13 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         currId: '',
         currName: '',
         selectType: 'DFMEA',
-        keywords: ''
+        keywords: '',
+        dataSource:[]
     });
 
     const [form] = Form.useForm();
     const {runAsync: fetchList} = useRequest(getList, {manual: true});
+    const {runAsync: fetchList2} = useRequest(getList2, {manual: true});
     const {runAsync: fetchMoreRelationNode} = useRequest(getMoreRelationNode, {manual: true});
     const {search} = useLocation()
 
@@ -41,6 +45,15 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     const getAssets = getCombinedAssets();
     const getServices = getServicesByConfig(GI_SERVICES_OPTIONS, null);
 
+    const [open, setOpen] = React.useState(false);
+
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     const MyServices = getServices.map((c) => {
 
@@ -63,6 +76,10 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                 service: (params) => {
                     const data = params.data;
                     console.log("data", data);
+
+                    if (data.fmeaNo) {
+                        getListByNo(data.fmeaNo.split('|||').join(','));
+                    }
                     if (data.type == "FMEA") {
                         setState(preState => {
                             return {
@@ -83,9 +100,10 @@ const App: React.FunctionComponent<AppProps> = (props) => {
 
                     return new Promise(function (resolve) {
                         let newVar = {
-                            名称: data.名称,
+                            名称: data.Name_Details,
+                            融合: data.Aggregations || '',
                             类型: data.type,
-                            FMEANO: data.FMEANO || '',
+                            fmeaNo: data.fmeaNo || '',
                             工厂: data.productionPlant || '',
                             部门: data.fmeaRespDept || '',
                             FMEA责任人: data.fmeaRespName || '',
@@ -95,8 +113,8 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                             PH1: data.ph1 || '',
                             PH2: data.ph2 || '',
                         };
-                        if (data.fmeanos) {
-                            let replaceAll = data.fmeanos.split(',');
+                        if (data.fmeaNo) {
+                            let replaceAll = data.fmeaNo.split('|||');
                             console.log(replaceAll)
                             if (replaceAll) {
                                 for (let i = 0; i < replaceAll.length; i++) {
@@ -177,9 +195,27 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         }
         return s;
     }
+    const getListByNo=(nos)=>{
+        let date = fetchList2({
+            params: { fmeaNo: nos }
+        }).then()
+            .then(res => {
+                setState(preState => {
+                    return {
+                        ...preState,
+                        dataSource: res.data,
+                    }
+                });
+            });
+    }
     const goFMEA = async () => {
         const {currId} = state;
-        window.open('http://localhost:3202/browseInfo/' + currId + '/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
+
+        showDrawer();
+        // window.open('http://localhost:3202/browseInfo/' + currId + '/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
+    };
+    const goFMEA2 = async (currId) => {
+        window.open('/browseInfo/' + currId + '/2005000000IDRECOB27U/to/2009000000IDRECO0B3W');
     };
     const searchData = (data) => {
         let parameters = [];
@@ -311,11 +347,73 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         })
         // })
     }, []);
-    const {assets, isReady, config, services, currId, currName, selectType, keywords} = state;
+    const {assets, isReady, config, services, currId, currName, selectType, keywords,dataSource} = state;
 
     if (!isReady) {
         return <div>loading...</div>
     }
+
+
+    const columns = [
+        {
+            title: 'FMEA No.',
+            dataIndex: 'fmeaNo',
+            key: 'fmeaNo',
+            render: (_, record) => (
+                <Space size="middle">
+                    <a onClick={() => {
+                        goFMEA2(record.id)
+                    }} >{record.fmeaNo}</a>
+                </Space>
+            ),
+        },
+        {
+            title: 'Version',
+            dataIndex: 'fmeaVsersion',
+            key: 'fmeaVsersion',
+        },
+        {
+            title: 'FMEA Type',
+            dataIndex: 'fmeaType',
+            key: 'fmeaType',
+        },
+        {
+            title: 'Department',
+            dataIndex: 'productionPlant',
+            key: 'productionPlant',
+        },
+        {
+            title: 'Section',
+            dataIndex: 'fmeaRespDept',
+            key: 'fmeaRespDept',
+        },
+        {
+            title: 'Moderator',
+            dataIndex: 'moderatorName',
+            key: 'moderatorName',
+        },
+        {
+            title: 'Resp.',
+            dataIndex: 'fmeaRespName',
+            key: 'fmeaRespName',
+        },
+        {
+            title: 'PH1',
+            dataIndex: 'ph1',
+            key: 'ph1',
+        },
+        {
+            title: 'PH2',
+            dataIndex: 'ph2',
+            key: 'ph2',
+        },
+        {
+            title: 'Release Date',
+            dataIndex: 'finishDate',
+            key: 'finishDate',
+        },
+    ];
+
     return (
         <div className="gi-root">
             {/*<div className="ant-pro-card">*/}
@@ -368,18 +466,25 @@ const App: React.FunctionComponent<AppProps> = (props) => {
             {/*    </Card>*/}
             {/*</div>*/}
             <div style={{position: 'absolute', right: '200px', top: '40px', zIndex: 100, display: "flex"}}>
-                <ThemeSwitch></ThemeSwitch>
-                {/*<Form.Item*/}
-                {/*    name="fmea">*/}
-                {/*    {*/}
-                {/*        currName ? (*/}
-                {/*            <Tooltip title="search">*/}
-                {/*                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}*/}
-                {/*                        onClick={() => {*/}
-                {/*                            goFMEA();*/}
-                {/*                        }}>{currName}</Button>*/}
-                {/*            </Tooltip>) : null}*/}
-                {/*</Form.Item>*/}
+                {/*<ThemeSwitch></ThemeSwitch>*/}
+                <Form.Item
+                    name="fmea">
+                    {
+                        // currName ? (
+
+                            <Tooltip title="search">
+                                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}
+                                        onClick={() => {
+                                            goFMEA();
+                                        }}>
+                                    {/*{currName}*/}
+                                    FMEA List
+                                </Button>
+                            </Tooltip>
+
+                        // ) : null
+                     }
+                </Form.Item>
             </div>
             <div style={{height: "100vh"}}>
                 {/** @ts-ignore */}
@@ -389,6 +494,9 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                     services={services}
                 />
             </div>
+            <Drawer title="FMEA List" mask={true} placement="bottom" onClose={onClose} open={open}>
+                <Table columns={columns} dataSource={dataSource} bordered />
+            </Drawer>
         </div>
     );
 };
