@@ -99,29 +99,28 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                     }
 
                     return new Promise(function (resolve) {
-                        let newVar = {
-                            名称: data.Name_Details,
-                            融合: data.Aggregations || '',
-                            类型: data.type,
-                            fmeaNo: data.fmeaNo || '',
-                            工厂: data.productionPlant || '',
-                            部门: data.fmeaRespDept || '',
-                            FMEA责任人: data.fmeaRespName || '',
-                            产线: data.productionLine || '',
-                            项目名称: data.projectName || '',
-                            项目NO: data.projectNo || '',
-                            PH1: data.ph1 || '',
-                            PH2: data.ph2 || '',
-                        };
-                        if (data.fmeaNo) {
-                            let replaceAll = data.fmeaNo.split('|||');
+                        let newVar = {};
+                        newVar['FMEA No.']= data.fmeaNo || ''
+                        if (data.Name_Details) {
+                            let replaceAll = data.Name_Details.split('|||');
                             console.log(replaceAll)
                             if (replaceAll) {
                                 for (let i = 0; i < replaceAll.length; i++) {
-                                    newVar['编号' + (i + 1)] = replaceAll[i];
+                                    newVar['名称' + (i + 1)] = replaceAll[i];
                                 }
                             }
                         }
+                        newVar['融合']= data.Aggregations || ''
+                            newVar['类型']=data.type
+                            newVar['工厂']= data.productionPlant || ''
+                            newVar['部门']=  data.fmeaRespDept || ''
+                            newVar['FMEA责任人']= data.fmeaRespName || ''
+                            newVar['产线']= data.productionLine || ''
+                            newVar['项目名称']=  data.projectName || ''
+                            newVar['项目NO']= data.projectNo || ''
+                            newVar['PH1']= data.ph1 || ''
+                            newVar['PH2']= data.ph2 || ''
+
                         return resolve(newVar);
                     });
                 },
@@ -220,7 +219,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     const searchData = (data) => {
         let parameters = [];
         if (searchParams.get('keyword')) {
-            parameters.push({key: "Name", value: searchParams.get('keyword'), comparison: ''});
+            parameters.push({key: "Name_Details", value: searchParams.get('keyword'), comparison: ''});
         }
         if (searchParams.get('ap')) {
             parameters.push({key: "ap", value: searchParams.get('ap'), comparison: ''});
